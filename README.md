@@ -1,71 +1,58 @@
-## ESP32-S3 RTOS — Percobaan Peripheral (2 Core) -- Wokwi Simulator
+# ESP32-S3 RTOS — Percobaan Peripheral (2 Core) — Wokwi Simulator
 
-Dokumentasi singkat untuk menghubungkan dan menjalankan peripheral pada ESP32-S3 (2 core) menggunakan FreeRTOS.
+Proyek ini menggunakan **FreeRTOS multitasking** pada **ESP32-S3** untuk mengendalikan berbagai peripheral secara paralel.  
+Simulasi dilakukan menggunakan **Wokwi Simulator** dan dikembangkan dengan **PlatformIO (VSCode)**.
 
-Perangkat yang digunakan:
-- 3 × LED
-- 2 × Push button
-- 1 × Buzzer (active/passive)
-- 1 × OLED (I2C, 128x64, addr 0x3C)
-- 1 × Potensiometer (ADC)
-- 1 × Rotary encoder (A, B, push)
-- 1 × Motor stepper (dengan driver step/dir)
-- 1 × Servo (PWM)
+---
 
-## Pemetaan pin (diagram.json)
-<img width="782" height="418" alt="image" src="https://github.com/user-attachments/assets/251c92ad-b1cf-4278-8113-a540d1f0a94f" />
+# Perangkat yang digunakan
+- LED
+- Push button
+- Buzzer
+- OLED (I2C, 128x64)
+- Potensiometer
+- Rotary encoder
+- Motor stepper
+- Servo motor
 
-- LED1: GPIO2
-- LED2: GPIO4
-- LED3: GPIO5
-- BUTTON1: GPIO0 (INPUT_PULLUP)
-- BUTTON2: GPIO15 (INPUT_PULLUP)
-- BUZZER (PWM): GPIO13
-- OLED (I2C): SDA = GPIO21, SCL = GPIO22
-- POT (ADC): GPIO36 (ADC1 channel)
-- ENCODER A: GPIO18
-- ENCODER B: GPIO19
-- ENCODER BTN: GPIO23
-- STEPPER STEP: GPIO26
-- STEPPER DIR: GPIO25
-- STEPPER ENABLE: GPIO27
-- SERVO (PWM): GPIO14
+---
 
-## Program (main.cpp)
-File program terdapat pada folder src -> main.cpp
+# Diagram Simulasi
 
-## Cara menjalankan tiap I/O di tiap core (FreeRTOS)
-Pada ESP32 dapat membuat task FreeRTOS dan mem-pinnya ke core tertentu dengan `xTaskCreatePinnedToCore`. Contoh singkat pembuatan 2 tugas: satu di core 0 dan satu di core 1.
+<img src="assets/Screenshot 2025-11-11 015944.png" width="500">
 
-Contoh (singkat) — potongan kode di `src/main.cpp`:
+*Koneksi pin ESP32-S3:**
+- LED1 → GPIO2  
+- LED2 → GPIO4  
+- LED3 → GPIO5  
+- BUTTON1 → GPIO0 (INPUT_PULLUP)  
+- BUTTON2 → GPIO15 (INPUT_PULLUP)  
+- BUZZER (PWM) → GPIO13  
+- OLED (I2C) → SDA = GPIO21, SCL = GPIO22  
+- POT (ADC) → GPIO36 (ADC1 channel)  
+- ENCODER A → GPIO18  
+- ENCODER B → GPIO19  
+- ENCODER BTN → GPIO23  
+- STEPPER STEP → GPIO26  
+- STEPPER DIR → GPIO25  
+- STEPPER ENABLE → GPIO27  
+- SERVO (PWM) → GPIO14  
 
-```cpp
-// Contoh pembuatan task pinned ke core
-void taskLEDs(void *param) {
-  while (true) {
-    // toggling LED
-    vTaskDelay(pdMS_TO_TICKS(500));
-  }
-}
+---
 
-void taskButtonsBuzzer(void *param) {
-  while (true) {
-    // cek button
-    vTaskDelay(pdMS_TO_TICKS(50));
-  }
-}
+# Pembagian Tugas FreeRTOS antar Core
 
-void setup() {
-  // inisialisasi pin
-  xTaskCreatePinnedToCore(taskLEDs,        "LEDs",        4096, NULL, 1, &taskLEDsHandle,       0);
-  xTaskCreatePinnedToCore(taskServoOLED,   "ServoOLED",   6144, NULL, 1, &taskServoOLEDHandle,   1);  // core 1
-}
+Berikut contoh pembagian task antar core ESP32-S3:
 
-void loop() {
-  // kosong, semua kerja di task
-}
-```
+| Core | Tugas utama | Deskripsi |
+|------|--------------|-----------|
+| **Core 0** | Input & Komunikasi | Membaca tombol, rotary encoder, potensiometer, dan komunikasi I2C ke OLED |
+| **Core 1** | Output & Kontrol Aktuator | Mengendalikan LED, Buzzer, Servo, dan Stepper |
 
-## Hasil Video Demo
-https://github.com/user-attachments/assets/b5219cc6-3a79-4fd0-934b-dc024594a8c2
 
+Hasil Video Demo
+<video src="assets/Screen Recording 2025-11-11.mp4" width="500" controls></video>
+
+Simulasi dijalankan di Wokwi menggunakan PlatformIO pada VSCode
+
+Board: ESP32-S3
