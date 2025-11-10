@@ -1,7 +1,6 @@
-# ESP32-S3 RTOS — Percobaan Peripheral (2 Core) — Wokwi Simulator
+# Percobaan RTOS Menggunakan ESP32-S3 (2 Core) — Wokwi Simulator
 
-Proyek ini menggunakan **FreeRTOS multitasking** pada **ESP32-S3** untuk mengendalikan berbagai peripheral secara paralel.  
-Simulasi dilakukan menggunakan **Wokwi Simulator** dan dikembangkan dengan **PlatformIO (VSCode)**.
+Proyek ini menggunakan **FreeRTOS multitasking** pada **ESP32-S3** untuk mengendalikan beberapa peripheral secara paralel. Simulasi dilakukan menggunakan **Wokwi Simulator** dan dikembangkan dengan **PlatformIO (VSCode)**.
 
 ---
 
