@@ -51,7 +51,7 @@ Berikut contoh pembagian task antar core ESP32-S3:
 
 
 Hasil Video Demo
-[![Tonton Video Demo](assets/Screenshot%202025-11-11%20015944.png)](assets/Screen%20Recording%202025-11-11.mp4)
+<video src="assets/Screen Recording 2025-11-11.mp4" width="500" controls></video>
 
 (file: `assets/Screen Recording 2025-11-11.mp4`)
 
