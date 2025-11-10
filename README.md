@@ -21,7 +21,7 @@ Simulasi dilakukan menggunakan **Wokwi Simulator** dan dikembangkan dengan **Pla
 
 <img src="assets/Screenshot 2025-11-11 015944.png" width="500">
 
-*Koneksi pin ESP32-S3:**
+*Koneksi pin ESP32-S3:*
 - LED1 → GPIO2  
 - LED2 → GPIO4  
 - LED3 → GPIO5  
@@ -51,7 +51,10 @@ Berikut contoh pembagian task antar core ESP32-S3:
 
 
 Hasil Video Demo
-<video src="assets/Screen Recording 2025-11-11.mp4" width="500" controls></video>
+[![Tonton Video Demo](assets/Screenshot%202025-11-11%20015944.png)](assets/Screen%20Recording%202025-11-11.mp4)
+
+(file: `assets/Screen Recording 2025-11-11.mp4`)
+
 
 Simulasi dijalankan di Wokwi menggunakan PlatformIO pada VSCode
 
