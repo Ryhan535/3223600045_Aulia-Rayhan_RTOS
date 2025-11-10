@@ -46,7 +46,7 @@ Berikut contoh pembagian task antar core ESP32-S3:
 | Core | Tugas utama | Deskripsi |
 |------|--------------|-----------|
 | **Core 0** | Input & Komunikasi | Membaca tombol, rotary encoder, potensiometer, dan komunikasi I2C ke OLED |
-| **Core 1** | Output & Kontrol Aktuator | Mengendalikan LED, Buzzer, Servo, dan Stepper |
+| **Core 1** | Output | Mengendalikan LED, Buzzer, Servo, dan Stepper |
 
 
 Hasil Video Demo
